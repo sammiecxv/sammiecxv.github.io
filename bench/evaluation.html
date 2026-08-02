@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ThreadTrace — Provenance Verification: Evaluation</title>
+<style>
+  :root{
+    --paper-50:#faf8f3;--paper-100:#f3efe6;--paper-300:#e2dccd;--paper-400:#d3cbb8;
+    --ink-900:#1c1a15;--ink-700:#3e3a30;--ink-600:#57513f;--ink-500:#6f6853;--ink-400:#8b846c;--ink-300:#a8a189;
+    --indigo-700:#22335f;--indigo-500:#2d3e6b;--indigo-200:#b9c1d6;
+    --leaf-600:#4a5d3a;--leaf-500:#708a56;--madder-500:#b5502e;--madder-600:#97411f;
+    --hair:#e4ddcd;
+    --mono:"SFMono-Regular",ui-monospace,Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:Georgia,"Times New Roman",serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--paper-50);color:var(--ink-900);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:860px;margin:0 auto;padding:56px 28px 80px}
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--madder-600)}
+  h1{font-family:var(--serif);font-weight:600;font-size:38px;line-height:1.12;margin:10px 0 14px;letter-spacing:-.01em}
+  .lede{font-size:17px;color:var(--ink-600);max-width:60ch}
+  h2{font-family:var(--serif);font-weight:600;font-size:23px;margin:44px 0 12px;letter-spacing:-.01em}
+  p{max-width:68ch}
+  a{color:var(--indigo-700)}a:hover{color:var(--madder-600)}
+  code,.m{font-family:var(--mono);font-size:.9em}
+  .rule{height:1px;background:var(--hair);margin:34px 0}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:20px 0}
+  .stat{border:1px solid var(--hair);border-radius:12px;background:#fff;padding:16px 18px}
+  .stat .v{font-family:var(--serif);font-size:30px;color:var(--ink-900);line-height:1}
+  .stat .l{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-500);margin-top:8px}
+  .card{border:1px solid var(--hair);border-radius:14px;background:#fff;padding:22px 22px 14px;box-shadow:0 1px 2px rgba(28,26,21,.04)}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;color:var(--ink-600);margin-top:6px}
+  .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:8px}
+  th,td{text-align:right;padding:8px 10px;border-bottom:1px solid var(--hair);font-variant-numeric:tabular-nums}
+  th:first-child,td:first-child{text-align:left}
+  th{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-500);font-weight:500}
+  td.m{font-family:var(--mono)}
+  .note{font-size:13px;color:var(--ink-500);background:var(--paper-100);border:1px dashed var(--paper-400);border-radius:10px;padding:12px 14px;margin-top:16px}
+  ul{max-width:68ch;padding-left:20px}li{margin:6px 0}
+  .tag{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--leaf-600);border:1px solid var(--leaf-500);border-radius:999px;padding:2px 9px;margin-left:8px;vertical-align:middle}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">ThreadTrace · Evaluation</div>
+  <h1>Verification cost of a signed Digital Product Passport</h1>
+  <p class="lede">How expensive is it to <em>prove</em> a garment's chain of custody hasn't been forged? We measure verification latency against chain length, and the size a passport adds to a tag.</p>
+
+  <div class="grid" id="headline"></div>
+
+  <h2>Method</h2>
+  <p>Each passport is a hash chain of signed supply-chain events (Ed25519 over <span class="m">SHA-256(seq ‖ payloadHash ‖ prevHash)</span>; see <code>server/data/provenance.js</code>). Verification re-derives every hash and checks every signature. We build synthetic chains of <span class="m">n ∈ {1…512}</span> events by tiling the real PANGAIA passport's chapters (so event payloads are of realistic length), warm up, then time <code>verifyEvents()</code> over many repetitions and report the mean and 95th percentile. Reproduce with <code>npm run bench</code>, which writes <code>bench/results.json</code> — this page charts it.</p>
+
+  <h2>Verification latency vs. chain length</h2>
+  <div class="card">
+    <svg id="chart" viewBox="0 0 760 340" width="100%" role="img" aria-label="Verification latency versus chain length"></svg>
+    <div class="legend">
+      <span><i style="background:var(--indigo-500)"></i>mean verify time (ms)</span>
+      <span><i style="background:var(--leaf-500)"></i>per-event cost (µs) — flat ⇒ linear</span>
+    </div>
+  </div>
+
+  <h2>Results</h2>
+  <table id="tbl">
+    <thead><tr><th>events (n)</th><th>mean (ms)</th><th>p95 (ms)</th><th>µs / event</th><th>chain size (KB)</th></tr></thead>
+    <tbody></tbody>
+  </table>
+  <div class="note" id="prov"></div>
+
+  <h2>Findings</h2>
+  <ul>
+    <li><strong>Verification is linear, <span class="m">O(n)</span></strong> in the number of events — one SHA-256 + one Ed25519 check per event. The per-event cost is flat (the green line), confirming no super-linear blow-up.</li>
+    <li><strong>It's effectively free at real sizes.</strong> A real garment passport has a handful of events; even a 64-event chain verifies in single-digit milliseconds — imperceptible in the scan-to-verdict flow.</li>
+    <li><strong>Tag footprint is small and linear</strong> — roughly <span id="perbytes" class="m"></span> per event. The tag itself only needs the <em>head</em> hash (32 bytes); the full chain is fetched from the API, so the physical QR/NFC payload is constant regardless of chain length.</li>
+    <li><strong>Security cost is asymmetric in our favour:</strong> forging one event means re-signing it <em>and</em> every downstream event, none of whose private keys the attacker holds — while a verifier pays only the linear cost above.</li>
+  </ul>
+
+  <h2>Threat model coverage</h2>
+  <table>
+    <thead><tr><th>Attack</th><th style="text-align:left">Caught by</th><th>Test</th></tr></thead>
+    <tbody>
+      <tr><td style="text-align:left">Silent edit of a claim</td><td style="text-align:left">payloadHash → recordHash → signature all break</td><td>✓</td></tr>
+      <tr><td style="text-align:left">Inserted / deleted / reordered event</td><td style="text-align:left">linkage breaks at the splice, cascades</td><td>✓</td></tr>
+      <tr><td style="text-align:left">Forged attestation</td><td style="text-align:left">signature check fails (no private key)</td><td>✓</td></tr>
+      <tr><td style="text-align:left">Chain replayed under another serial</td><td style="text-align:left">serial is bound into every payload hash</td><td>✓</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:12px">All four are asserted in <code>tests/provenance.test.js</code> (<code>npm test</code>). <strong>Out of scope</strong>, noted as future work: key distribution / PKI, certificate revocation, and anchoring the head hash on a public ledger for independent timestamping.</p>
+
+  <div class="rule"></div>
+  <p style="font-size:13px;color:var(--ink-500)">Ed25519 + SHA-256 hash chain · figures are indicative; run <code>npm run bench</code> on your target hardware for citable numbers.</p>
+</div>
+
+<script>
+const FALLBACK = {"runtime":"Sample run · WebCrypto (browser) — run `npm run bench` for Node figures","sample":true,"samples":[
+ {"n":1,"verifyMs":{"mean":0.075,"p95":0.2},"perEventUs":75.0,"chainBytes":908},
+ {"n":2,"verifyMs":{"mean":0.120,"p95":0.2},"perEventUs":60.0,"chainBytes":1813},
+ {"n":4,"verifyMs":{"mean":0.278,"p95":0.4},"perEventUs":69.5,"chainBytes":3619},
+ {"n":8,"verifyMs":{"mean":1.070,"p95":1.7},"perEventUs":133.8,"chainBytes":7245},
+ {"n":16,"verifyMs":{"mean":2.253,"p95":2.7},"perEventUs":140.8,"chainBytes":14521},
+ {"n":32,"verifyMs":{"mean":4.480,"p95":5.0},"perEventUs":140.0,"chainBytes":29055},
+ {"n":64,"verifyMs":{"mean":9.215,"p95":9.8},"perEventUs":144.0,"chainBytes":58157},
+ {"n":128,"verifyMs":{"mean":18.762,"p95":23.1},"perEventUs":146.6,"chainBytes":116477},
+ {"n":256,"verifyMs":{"mean":37.120,"p95":44.2},"perEventUs":145.0,"chainBytes":233251},
+ {"n":512,"verifyMs":{"mean":75.045,"p95":86.5},"perEventUs":146.6,"chainBytes":466941}]};
+
+function render(data){
+  const S=data.samples;
+  // headline stats
+  const at64=S.find(s=>s.n===64)||S[S.length-1];
+  const perEvent=(S.reduce((a,s)=>a+s.perEventUs,0)/S.length);
+  const perBytes=Math.round(S[S.length-1].chainBytes/S[S.length-1].n);
+  document.getElementById('headline').innerHTML=[
+    ['~'+perEvent.toFixed(0)+' µs','per event · verify'],
+    [at64.verifyMs.mean.toFixed(1)+' ms','verify a '+at64.n+'-event chain'],
+    ['O(n)','verification complexity'],
+    [perBytes+' B','per event · on wire']
+  ].map(([v,l])=>`<div class="stat"><div class="v">${v}</div><div class="l">${l}</div></div>`).join('');
+  document.getElementById('perbytes').textContent=perBytes+' bytes';
+
+  // table
+  document.querySelector('#tbl tbody').innerHTML=S.map(s=>
+    `<tr><td class="m">${s.n}</td><td class="m">${s.verifyMs.mean.toFixed(3)}</td><td class="m">${s.verifyMs.p95.toFixed(3)}</td><td class="m">${s.perEventUs.toFixed(1)}</td><td class="m">${(s.chainBytes/1024).toFixed(1)}</td></tr>`).join('');
+  document.getElementById('prov').textContent=(data.sample?'⚠ ':'')+'Source: '+(data.runtime||'results.json')+(data.generated?' · '+data.generated.slice(0,10):'');
+
+  // chart — log2 x, linear y (ms) with secondary per-event line
+  const W=760,H=340,pl=52,pr=52,pt=18,pb=42,iw=W-pl-pr,ih=H-pt-pb;
+  const xs=S.map(s=>Math.log2(s.n)), xmax=Math.max(...xs);
+  const X=v=>pl+(xmax? (Math.log2(v)/xmax):0)*iw;
+  const ymax=Math.max(...S.map(s=>s.verifyMs.mean))*1.08;
+  const Y=v=>pt+ih-(v/ymax)*ih;
+  const pemax=Math.max(...S.map(s=>s.perEventUs))*1.25;
+  const Y2=v=>pt+ih-(v/pemax)*ih;
+  let g='';
+  // y grid + left axis (ms)
+  const yt=[0,ymax*0.25,ymax*0.5,ymax*0.75,ymax];
+  yt.forEach(v=>{const y=Y(v);g+=`<line x1="${pl}" y1="${y}" x2="${W-pr}" y2="${y}" stroke="var(--hair)"/>`+
+    `<text x="${pl-8}" y="${y+4}" text-anchor="end" font-family="var(--mono)" font-size="10" fill="var(--ink-400)">${v.toFixed(0)}</text>`;});
+  // x ticks
+  S.forEach(s=>{const x=X(s.n);g+=`<text x="${x}" y="${H-pb+18}" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink-400)">${s.n}</text>`;});
+  g+=`<text x="${pl}" y="${pt-4}" font-family="var(--mono)" font-size="10" fill="var(--indigo-700)">ms</text>`;
+  g+=`<text x="${W-pr}" y="${pt-4}" text-anchor="end" font-family="var(--mono)" font-size="10" fill="var(--leaf-600)">µs/event</text>`;
+  g+=`<text x="${pl+iw/2}" y="${H-4}" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink-500)">chain length — events (log₂)</text>`;
+  // per-event line (flat)
+  const pe=S.map(s=>`${X(s.n)},${Y2(s.perEventUs)}`).join(' ');
+  g+=`<polyline points="${pe}" fill="none" stroke="var(--leaf-500)" stroke-width="1.6" stroke-dasharray="4 3"/>`;
+  S.forEach(s=>{g+=`<circle cx="${X(s.n)}" cy="${Y2(s.perEventUs)}" r="2.4" fill="var(--leaf-500)"/>`;});
+  // mean latency line
+  const ml=S.map(s=>`${X(s.n)},${Y(s.verifyMs.mean)}`).join(' ');
+  g+=`<polyline points="${ml}" fill="none" stroke="var(--indigo-500)" stroke-width="2.4"/>`;
+  S.forEach(s=>{g+=`<circle cx="${X(s.n)}" cy="${Y(s.verifyMs.mean)}" r="3.2" fill="#fff" stroke="var(--indigo-500)" stroke-width="2"/>`;});
+  document.getElementById('chart').innerHTML=g;
+}
+
+fetch('./results.json').then(r=>r.ok?r.json():Promise.reject()).then(render).catch(()=>render(FALLBACK));
+</script>
+</body>
+</html>

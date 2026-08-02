@@ -1,0 +1,19 @@
+{
+  "generated": "2026-08-01T00:00:00.000Z",
+  "runtime": "Sample run · WebCrypto (browser) — run `npm run bench` for Node figures on your machine",
+  "alg": "Ed25519 + SHA-256 hash chain",
+  "reps": 40,
+  "sample": true,
+  "samples": [
+    { "n": 1,   "verifyMs": { "mean": 0.075, "median": 0.1, "p95": 0.2 },  "perEventUs": 75.0,  "chainBytes": 908 },
+    { "n": 2,   "verifyMs": { "mean": 0.120, "median": 0.1, "p95": 0.2 },  "perEventUs": 60.0,  "chainBytes": 1813 },
+    { "n": 4,   "verifyMs": { "mean": 0.278, "median": 0.3, "p95": 0.4 },  "perEventUs": 69.5,  "chainBytes": 3619 },
+    { "n": 8,   "verifyMs": { "mean": 1.070, "median": 1.1, "p95": 1.7 },  "perEventUs": 133.8, "chainBytes": 7245 },
+    { "n": 16,  "verifyMs": { "mean": 2.253, "median": 2.2, "p95": 2.7 },  "perEventUs": 140.8, "chainBytes": 14521 },
+    { "n": 32,  "verifyMs": { "mean": 4.480, "median": 4.4, "p95": 5.0 },  "perEventUs": 140.0, "chainBytes": 29055 },
+    { "n": 64,  "verifyMs": { "mean": 9.215, "median": 9.0, "p95": 9.8 },  "perEventUs": 144.0, "chainBytes": 58157 },
+    { "n": 128, "verifyMs": { "mean": 18.762, "median": 18.2, "p95": 23.1 }, "perEventUs": 146.6, "chainBytes": 116477 },
+    { "n": 256, "verifyMs": { "mean": 37.120, "median": 36.2, "p95": 44.2 }, "perEventUs": 145.0, "chainBytes": 233251 },
+    { "n": 512, "verifyMs": { "mean": 75.045, "median": 72.9, "p95": 86.5 }, "perEventUs": 146.6, "chainBytes": 466941 }
+  ]
+}
