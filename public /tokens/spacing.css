@@ -1,0 +1,48 @@
+/* ThreadTrace — Spacing, radius, sizing, z-index
+   4px base grid. The brand reads as precise/documentary, so radii stay small. */
+
+:root {
+  /* Spacing scale (4px base) */
+  --space-0:  0;
+  --space-1:  0.25rem;  /* 4 */
+  --space-2:  0.5rem;   /* 8 */
+  --space-3:  0.75rem;  /* 12 */
+  --space-4:  1rem;     /* 16 */
+  --space-5:  1.5rem;   /* 24 */
+  --space-6:  2rem;     /* 32 */
+  --space-7:  3rem;     /* 48 */
+  --space-8:  4rem;     /* 64 */
+  --space-9:  6rem;     /* 96 */
+
+  /* Radius — documentary, crisp. Pills for tags/seals only. */
+  --radius-xs:   2px;
+  --radius-sm:   4px;
+  --radius-md:   6px;
+  --radius-lg:   10px;
+  --radius-xl:   16px;
+  --radius-pill: 999px;
+
+  /* Border widths */
+  --border-1: 1px;
+  --border-2: 1.5px;
+  --border-3: 2px;
+
+  /* Container widths */
+  --container-sm: 32rem;
+  --container-md: 48rem;
+  --container-lg: 64rem;
+  --container-xl: 80rem;
+
+  /* Control heights */
+  --control-sm: 32px;
+  --control-md: 40px;
+  --control-lg: 48px;
+
+  /* Z layers */
+  --z-base:    0; /* @kind other */
+  --z-raised:  10; /* @kind other */
+  --z-sticky:  100; /* @kind other */
+  --z-overlay: 1000; /* @kind other */
+  --z-modal:   1100; /* @kind other */
+  --z-toast:   1200; /* @kind other */
+}

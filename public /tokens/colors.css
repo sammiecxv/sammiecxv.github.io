@@ -1,0 +1,99 @@
+/* ThreadTrace — Color tokens
+   Palette drawn from natural textile dyes: undyed paper/linen neutrals,
+   woad indigo, madder clay, botanical leaf, aged ochre. Warm, honest, earthy —
+   deliberately NOT the generic "eco SaaS" mint-green + purple gradient. */
+
+:root {
+  /* ----- Paper / linen neutrals (warm, undyed) ----- */
+  --paper-50:  #FAF8F3;
+  --paper-100: #F4F0E7;
+  --paper-200: #E8E2D4;
+  --paper-300: #D8CFBC;
+  --paper-400: #C3B8A1;
+
+  /* ----- Ink (warm near-black, like iron-gall ink) ----- */
+  --ink-900: #1C1814;
+  --ink-800: #2A241D;
+  --ink-700: #3A332B;
+  --ink-500: #6B6155;
+  --ink-400: #8A7F70;
+  --ink-300: #A89C8A;
+
+  /* ----- Woad indigo (primary — provenance, trust) ----- */
+  --indigo-900: #141C30;
+  --indigo-700: #1E2A4A;
+  --indigo-500: #2D3E6B;
+  --indigo-400: #4B5C8C;
+  --indigo-300: #8593B4;
+  --indigo-100: #DDE2EC;
+
+  /* ----- Madder clay (accent — highlights, calls to action secondary) ----- */
+  --madder-600: #97411F;
+  --madder-500: #B5502E;
+  --madder-400: #C9714F;
+  --madder-200: #E7C0AE;
+  --madder-100: #F2DDD2;
+
+  /* ----- Botanical leaf (verified / sustainable — muted, earthy) ----- */
+  --leaf-700: #3A4A2E;
+  --leaf-600: #4A5D3A;
+  --leaf-400: #708A56;
+  --leaf-200: #C3D0AE;
+  --leaf-100: #E3E9D6;
+
+  /* ----- Aged ochre (caution / in-progress) ----- */
+  --ochre-600: #A06E1E;
+  --ochre-500: #C68A2E;
+  --ochre-200: #ECD6A8;
+  --ochre-100: #F6EBCF;
+
+  /* ===== Semantic aliases ===== */
+  /* Surfaces */
+  --surface-page:      var(--paper-100);
+  --surface-card:      var(--paper-50);
+  --surface-raised:    #FFFFFF;
+  --surface-sunken:    var(--paper-200);
+  --surface-inverse:   var(--ink-900);
+
+  /* Text */
+  --text-display:   var(--ink-900);
+  --text-body:      var(--ink-800);
+  --text-muted:     var(--ink-500);
+  --text-subtle:    var(--ink-400);
+  --text-on-dark:   var(--paper-50);
+  --text-on-accent: var(--paper-50);
+  --text-link:      var(--indigo-500);
+
+  /* Brand / interactive */
+  --brand:          var(--indigo-500);
+  --brand-hover:    var(--indigo-700);
+  --brand-strong:   var(--indigo-900);
+  --accent:         var(--madder-500);
+  --accent-hover:   var(--madder-600);
+
+  /* Borders & lines */
+  --border-hairline: var(--paper-300);
+  --border-strong:   var(--ink-700);
+  --border-ink:      var(--ink-900);
+  --leader-line:     var(--ink-300); /* dotted leader / serial rules */
+
+  /* Status — verification language */
+  --status-verified-fg: var(--leaf-700);
+  --status-verified-bg: var(--leaf-100);
+  --status-verified-line: var(--leaf-400);
+
+  --status-pending-fg:  var(--ochre-600);
+  --status-pending-bg:  var(--ochre-100);
+  --status-pending-line: var(--ochre-500);
+
+  --status-alert-fg:    var(--madder-600);
+  --status-alert-bg:    var(--madder-100);
+  --status-alert-line:  var(--madder-500);
+
+  --status-info-fg:     var(--indigo-700);
+  --status-info-bg:     var(--indigo-100);
+  --status-info-line:   var(--indigo-400);
+
+  /* Focus ring */
+  --focus-ring: var(--indigo-400);
+}

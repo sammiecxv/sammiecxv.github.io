@@ -1,0 +1,29 @@
+/* ThreadTrace — Elevation, borders, motion
+   Warm, soft, paper-like shadows (never cold/blue). Restrained motion. */
+
+:root {
+  /* Shadows — warm-tinted, low spread, like a card lifted off a paper desk */
+  --shadow-xs:  0 1px 2px rgba(28, 24, 20, 0.06);
+  --shadow-sm:  0 1px 3px rgba(28, 24, 20, 0.08), 0 1px 2px rgba(28, 24, 20, 0.04);
+  --shadow-md:  0 4px 12px rgba(28, 24, 20, 0.08), 0 1px 3px rgba(28, 24, 20, 0.06);
+  --shadow-lg:  0 12px 28px rgba(28, 24, 20, 0.12), 0 2px 6px rgba(28, 24, 20, 0.06);
+  --shadow-xl:  0 24px 56px rgba(28, 24, 20, 0.16), 0 4px 10px rgba(28, 24, 20, 0.08);
+
+  /* Inset (sunken inputs / wells) */
+  --shadow-inset: inset 0 1px 2px rgba(28, 24, 20, 0.08);
+
+  /* Focus ring */
+  --ring-focus: 0 0 0 3px rgba(75, 92, 140, 0.35);
+
+  /* Hairline + dotted leader motif */
+  --hairline: 1px solid var(--border-hairline);
+  --leader:   1px dotted var(--leader-line);
+
+  /* Motion — restrained, ease-out. No bounce. */
+  --ease-out:    cubic-bezier(0.22, 0.61, 0.36, 1); /* @kind other */
+  --ease-in-out: cubic-bezier(0.45, 0, 0.25, 1); /* @kind other */
+  --dur-fast:    120ms; /* @kind other */
+  --dur-base:    200ms; /* @kind other */
+  --dur-slow:    360ms; /* @kind other */
+  --motion-press: scale(0.985); /* @kind other */
+}
