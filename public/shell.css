@@ -1,0 +1,29 @@
+/* Styles for the phone frame, used by consumer.html and business.html.
+   Colours, fonts and spacing come from styles.css. Only layout lives here. */
+
+html, body { margin: 0; height: 100%; }
+*::-webkit-scrollbar { width: 0 !important; height: 0 !important; display: none; }
+* { scrollbar-width: none; -ms-overflow-style: none; }
+body { background: var(--paper-200); font-family: var(--font-sans);
+  display: flex; align-items: center; justify-content: center; min-height: 100vh; overflow: hidden; }
+#stage { display: flex; align-items: flex-start; justify-content: center; width: 100vw; height: 100vh; padding-top: 78px; box-sizing: border-box; }
+
+/* the phone itself: just the screen, no bezel or status bar */
+.phone { width: 390px; height: 812px; background: var(--surface-page); border-radius: 4px;
+  border: 1px solid var(--border-hairline); box-shadow: var(--shadow-lg); overflow: hidden; position: relative;
+  display: flex; flex-direction: column; }
+.statusbar { display: none; }
+.phone-body { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+
+@keyframes tt-sweep-kf { 0% { top: 24px; } 50% { top: 250px; } 100% { top: 24px; } }
+.tt-sweep { animation: tt-sweep-kf 1.9s var(--ease-in-out) infinite; }
+@keyframes tt-spin-kf { to { transform: rotate(360deg); } }
+.tt-spin { animation: tt-spin-kf 900ms linear infinite; }
+@keyframes tt-track-kf { 0%,100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.06); opacity: 0.55; } }
+.tt-track { animation: tt-track-kf 2.4s var(--ease-in-out) infinite; }
+@keyframes tt-fade-kf { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.tt-fade { animation: tt-fade-kf var(--dur-slow) var(--ease-out); }
+@keyframes tt-sheet-kf { from { transform: translateY(100%); } to { transform: none; } }
+.tt-sheet { animation: tt-sheet-kf var(--dur-base) var(--ease-out); }
+@keyframes tt-drawer-kf { from { transform: translateX(100%); } to { transform: none; } }
+.tt-drawer { animation: tt-drawer-kf var(--dur-base) var(--ease-out); }

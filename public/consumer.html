@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ThreadTrace — Consumer</title>
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/shell.css">
+<script src="/dist/vendor.js"></script>
+<script src="/_ds_bundle.js"></script>
+<script src="/honesty-shim.js"></script>
+<script src="/image-slot.js"></script>
+</head>
+<body>
+<div id="stage"><div id="root"></div></div>
+
+<!-- Data has to load first so window.TT exists before any screen runs. -->
+<script src="/api/bootstrap.js"></script>
+
+<!-- Consumer screens only. The business ones are on /business. -->
+<script src="/dist/app/shell.js"></script>
+<script src="/dist/app/honesty-extras.js"></script>
+<script src="/app/provenance-client.js"></script>
+<script src="/dist/app/provenance-verify.js"></script>
+<script src="/dist/app/consumer.js"></script>
+<script src="/dist/app/tweaks-panel.js"></script>
+<script src="/dist/consumer-root.js"></script>
+</body>
+</html>

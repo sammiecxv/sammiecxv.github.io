@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ThreadTrace — Business</title>
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/shell.css">
+<script src="/dist/vendor.js"></script>
+<script src="/_ds_bundle.js"></script>
+<script src="/honesty-shim.js"></script>
+<script src="/image-slot.js"></script>
+</head>
+<body>
+<div id="stage"><div id="root"></div></div>
+
+<!-- Data has to load first so window.TT exists before any screen runs. -->
+<script src="/api/bootstrap.js"></script>
+
+<!-- Business screens only. The consumer ones are on /consumer. -->
+<script src="/dist/app/shell.js"></script>
+<script src="/dist/app/supplier-trust.js"></script>
+<script src="/dist/app/supplier-extras.js"></script>
+<script src="/dist/app/supplier-datacollection.js"></script>
+<script src="/dist/app/supplier-mobile.js"></script>
+<script src="/dist/business-root.js"></script>
+</body>
+</html>
