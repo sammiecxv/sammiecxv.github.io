@@ -1,0 +1,29 @@
+{
+  "name": "threadtrace",
+  "version": "1.0.0",
+  "description": "ThreadTrace — EU Digital Product Passport platform. Express REST API + web client.",
+  "main": "server/server.js",
+  "scripts": {
+    "build": "node server/build/build-client.mjs",
+    "start": "npm run build && node server/server.js",
+    "dev": "concurrently -n build,server -c blue,green \"node server/build/build-client.mjs --watch\" \"node --watch server/server.js\"",
+    "migrate": "node server/db/migrate.js",
+    "test": "node --test",
+    "bench": "node bench/benchmark.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.3.0",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "qrcode-generator": "^2.0.4",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.4",
+    "esbuild": "^0.28.1"
+  }
+}

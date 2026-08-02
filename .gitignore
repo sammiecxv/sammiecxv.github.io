@@ -1,0 +1,6 @@
+node_modules/
+public/dist/
+.claude/settings.local.json
+server/db/threadtrace.db
+server/db/threadtrace.db-*
+server/db/authority-keys.json
