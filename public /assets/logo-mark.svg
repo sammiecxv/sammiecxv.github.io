@@ -1,0 +1,12 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ThreadTrace mark">
+  
+  <path d="M5 38 L17 27 L28 31 L43 12" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0.1 5.6"></path>
+  
+  <circle cx="17" cy="27" r="2.1" fill="currentColor"></circle>
+  <circle cx="28" cy="31" r="2.1" fill="currentColor"></circle>
+  
+  <circle cx="5" cy="38" r="2.6" fill="none" stroke="currentColor" stroke-width="2.2"></circle>
+  
+  <circle cx="43" cy="12" r="4.4" fill="currentColor"></circle>
+  <path d="M40.9 12 L42.4 13.5 L45.2 10.4" stroke="var(--paper-50, #FAF8F3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
